@@ -14,11 +14,6 @@ class InitialViewController: UIViewController {
     var initialViewRedValue: Float = 0
     var initialViewGreenValue: Float = 0.5
     var initialViewBlueValue: Float = 1
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -26,7 +21,6 @@ class InitialViewController: UIViewController {
     }
     
     @IBAction func unwind(_ sender: UIStoryboardSegue) {}
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let settingsVC = segue.destination as? SettingsViewController else { return }

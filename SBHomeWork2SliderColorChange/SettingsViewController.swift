@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var settingsView: UIView!
     
@@ -34,6 +34,9 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        redTextField.delegate = self
+        greenTextField.delegate = self
+        blueTextField.delegate = self
     }
     
     
@@ -43,39 +46,42 @@ class SettingsViewController: UIViewController {
         redSlider.minimumValue = 0
         redSlider.maximumValue = 1
         redSlider.value = redValue
-        redValueLabel.text = String(redSlider.value)
+        redValueLabel.text = String(redValue)
+        redTextField.text = String(redValue)
         
         greenSlider.tintColor = .green
         greenSlider.minimumValue = 0
         greenSlider.maximumValue = 1
         greenSlider.value = greenValue
-        greenValueLabel.text = String(greenSlider.value)
+        greenValueLabel.text = String(greenValue)
+        greenTextField.text = String(greenValue)
         
         blueSlider.tintColor = .blue
         blueSlider.minimumValue = 0
         blueSlider.maximumValue = 1
         blueSlider.value = blueValue
-        blueValueLabel.text = String(blueSlider.value)
+        blueValueLabel.text = String(blueValue)
+        blueTextField.text = String(blueValue)
         
-        settingsView.backgroundColor = UIColor(red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
+        settingsView.backgroundColor = UIColor(red: CGFloat(redValue), green: CGFloat(greenValue), blue: CGFloat(blueValue), alpha: 1)
     }
     
     
     @IBAction func redSliderAction(_ sender: Any) {
         redValueLabel.text = String(format: "%.2f", Double(redSlider.value))
-        settingsView.alpha = CGFloat(redSlider.value)
+        redTextField.text = String(format: "%.2f", Double(redSlider.value))
         settingsView.backgroundColor = UIColor(red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
     }
-
+    
     @IBAction func greenSliderAction(_ sender: Any) {
         greenValueLabel.text = String(format: "%.2f", Double(greenSlider.value))
-        settingsView.alpha = CGFloat(greenSlider.value)
+        greenTextField.text = String(format: "%.2f", Double(greenSlider.value))
         settingsView.backgroundColor = UIColor(red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
     }
     
     @IBAction func blueSliderAction(_ sender: Any) {
         blueValueLabel.text = String(format: "%.2f", Double(blueSlider.value))
-        settingsView.alpha = CGFloat(blueSlider.value)
+        blueTextField.text = String(format: "%.2f", Double(blueSlider.value))
         settingsView.backgroundColor = UIColor(red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
     }
     
@@ -88,3 +94,28 @@ class SettingsViewController: UIViewController {
     }
 }
 
+
+extension SettingsViewController {
+    
+    func switchBasedNextTextField(_ textField: UITextField) {
+        switch textField {
+        case redTextField:
+            greenTextField.becomeFirstResponder()
+        case greenTextField:
+            blueTextField.becomeFirstResponder()
+        default:
+            blueTextField.resignFirstResponder()
+            performSegue(withIdentifier: "toInitial", sender: self)
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switchBasedNextTextField(textField)
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+}
