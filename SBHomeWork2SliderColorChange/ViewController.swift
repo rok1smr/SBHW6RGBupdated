@@ -29,17 +29,17 @@ class ViewController: UIViewController {
         
         redSlider.tintColor = .red
         redSlider.minimumValue = 0
-        redSlider.maximumValue = 1
+        redSlider.maximumValue = 255
         redSlider.value = 0
         
         greenSlider.tintColor = .green
         greenSlider.minimumValue = 0
-        greenSlider.maximumValue = 1
+        greenSlider.maximumValue = 255
         greenSlider.value = 0
         
         blueSlider.tintColor = .blue
         blueSlider.minimumValue = 0
-        blueSlider.maximumValue = 1
+        blueSlider.maximumValue = 255
         blueSlider.value = 0
         
         view1.backgroundColor = UIColor(red: CGFloat(redSlider.value), green: CGFloat(greenSlider.value), blue: CGFloat(blueSlider.value), alpha: 1)
@@ -50,19 +50,19 @@ class ViewController: UIViewController {
     @IBAction func redSliderAction(_ sender: Any) {
         redTextField.text = String(format: "%.2f", Double(redSlider.value))
         view1.alpha = CGFloat(redSlider.value)
-        view1.backgroundColor = UIColor(red: CGFloat(redSlider.value*100), green: CGFloat(greenSlider.value*100), blue: 0/255.0, alpha: CGFloat(redSlider.value))
+        view1.backgroundColor = UIColor(red: CGFloat(redSlider.value)/255, green: CGFloat(greenSlider.value)/255, blue: CGFloat(blueSlider.value)/255, alpha: 1)
     }
 
     @IBAction func greenSliderAction(_ sender: Any) {
         greenTextField.text = String(format: "%.2f", Double(greenSlider.value))
         view1.alpha = CGFloat(greenSlider.value)
-        view1.backgroundColor = UIColor(red: CGFloat(redSlider.value*100), green: CGFloat(greenSlider.value*100), blue: 0/255.0, alpha: CGFloat(greenSlider.value))
+        view1.backgroundColor = UIColor(red: CGFloat(redSlider.value)/255, green: CGFloat(greenSlider.value)/255, blue: CGFloat(blueSlider.value)/255, alpha: 1)
     }
     
     @IBAction func blueSliderAction(_ sender: Any) {
         blueTextField.text = String(format: "%.2f", Double(blueSlider.value))
         view1.alpha = CGFloat(blueSlider.value)
-        view1.backgroundColor = UIColor(red: CGFloat(redSlider.value*100), green: CGFloat(greenSlider.value*100), blue: CGFloat(blueSlider.value*100), alpha: CGFloat(blueSlider.value))
+        view1.backgroundColor = UIColor(red: CGFloat(redSlider.value)/255, green: CGFloat(greenSlider.value)/255, blue: CGFloat(blueSlider.value)/255, alpha: 1)
     }
 }
 
